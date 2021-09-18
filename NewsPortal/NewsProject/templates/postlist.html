@@ -1,0 +1,47 @@
+{% extends 'flatpages/default.html' %}
+
+{% load my_filters %}
+ 
+<!-- Название у нас будет proudcts -->
+{% block title %}
+Post
+{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим сам товар, ID которого было передано в адрес -->
+{% block content %}
+    <h1>Все статьи</h1>
+    <h2>{{time_now|date:'d M Y'}}</h2>
+    <hr>
+    <h3> {{postlist|length}} </h3>
+    {% if postlist %} <!-- Если есть товары, то выводим таблицу с ними -->
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата написания
+                </td>
+                <td>
+                    Превью
+                </td>
+            </tr>
+                {%for post in postlist%}
+            <tr>
+                <td>
+                    {{ post.title}}
+                </td>
+                <td>
+                    {{ post.time_wr}}
+                </td>
+                <td>
+                    {{ post.post_text|truncatewords:10|censor }}
+                </td>
+
+            </tr>
+            {%endfor%}
+        </table>
+    {% else %}
+        <h2>Постов нет!</h2>
+    {% endif %}
+{% endblock content %}
